@@ -85,7 +85,7 @@ int main()
 	for (auto& el : circles) {
 		cout << (*el).getRadius() << endl;
 	}*/
-	//6
+	//6, 8
 	double sum = 0;
 	#pragma omp parallel for reduction(+: sum)
 	for (int i = 0; i < circles.size(); ++i) {
