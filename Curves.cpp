@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <numeric>
+#include <random>
 #include <vector>
 
 #include <omp.h>
@@ -14,24 +15,22 @@
 using namespace std;
 using namespace curves;
 
-double getRandDouble() {
-	return (double)(rand()) / (RAND_MAX / 20);
-}
-
 shared_ptr<Curve> getShPtrRandomCurve() {
-	switch (rand() % 3) {
+	mt19937_64 engine{ random_device{}() };
+	uniform_int_distribution<> dist_i{ 0, 2 };
+	uniform_real_distribution<> dist_r{ 0.0, 20.0 };
+	switch (dist_i(engine)) {
 	case 0:
-		return make_shared<Circle>(getRandDouble());
+		return make_shared<Circle>(dist_r(engine));
 	case 1:
-		return make_shared<Ellipse>(getRandDouble(), getRandDouble());
+		return make_shared<Ellipse>(dist_r(engine), dist_r(engine));
 	case 2:
-		return make_shared<Helix>(getRandDouble(), getRandDouble());
+		return make_shared<Helix>(dist_r(engine), dist_r(engine));
 	}
 }
 
 int main()
 {
-	srand(time(NULL));
 	const size_t SIZE_1 = 10;
 	// 2
 	vector<shared_ptr<Curve>> curves;
