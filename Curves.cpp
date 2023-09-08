@@ -36,13 +36,13 @@ int main()
 	// 2
 	vector<shared_ptr<Curve>> curves;
 	curves.reserve(SIZE_1);
-	try {
-		for (int i = 0; i < curves.capacity(); ++i) {
+	for (int i = 0; i < curves.capacity(); ++i) {
+		try {
 			curves.push_back(getShPtrRandomCurve());
 		}
-	}
-	catch (const exception& exception) {
-		cerr << "Exception: " << exception.what() << endl;
+		catch (const exception& exception) {
+			cerr << "Exception: " << exception.what() << endl;
+		}
 	}
 	// 3
 	for (auto it = curves.cbegin(); it != curves.cend(); ++it) {
